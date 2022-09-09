@@ -18,7 +18,7 @@ Bootstrap(app)
 # Make-shift secret key - login_manager only works in its presence
 app.config['SECRET_KEY'] = 'any-secret-key-you-choose'
 
-# This is your test secret API key.
+# Get your Stripe API Key here - https://stripe.com/
 stripe.api_key = ''
 
 
@@ -69,22 +69,6 @@ class Product(BaseModel):
     description = CharField()
     price = CharField()
     product_id = CharField()
-
-Product.create_table()
-
-database_orders = SqliteDatabase('orders.db')
-
-''' Model definitions -- the standard "pattern" is to define a base model class that specifies which database to use.  then, any subclasses will automaticallyuse the correct storage'''
-class BaseModel(Model):
-    class Meta:
-        database = database_orders
-# The user model specifies its fields (or columns) declaratively, like django
-class Order(BaseModel):
-    id = PrimaryKeyField(unique=True, null=False)
-    brand = CharField()
-    category = CharField()
-    item = CharField()
-    description = CharField()
 
 Product.create_table()
 
