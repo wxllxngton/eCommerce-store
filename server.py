@@ -9,8 +9,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from peewee import *
 
 import stripe
-# This is your test secret API key.
-stripe.api_key = 'sk_test_51LcRknFAwMnZH9bVd5mgvKYK0nC1IpMG7bb9gUmC1b4H1v3Jh4MmY5hdFzGMDXnbJHJoHDKSc13nQkVy5sqz2J7d00v7yhA42P'
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -18,6 +16,7 @@ Bootstrap(app)
 # Make-shift secret key - login_manager only works in its presence
 app.config['SECRET_KEY'] = 'any-secret-key-you-choose'
 
+# This is your test secret API key.
 # Get your Stripe API Key here - https://stripe.com/
 stripe.api_key = ''
 
