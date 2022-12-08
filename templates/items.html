@@ -1,0 +1,198 @@
+{% import "bootstrap/wtf.html" as wtf %}
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <!-- Favicon -->
+        <link
+            rel="icon"
+            href="{{ url_for('static', filename='assets/logo.png') }}"
+        />
+
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Allura&family=Edu+TAS+Beginner&family=Great+Vibes&family=Handlee&family=Parisienne&family=The+Nautigal&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- External CSS -->
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/style.css') }}"
+        />
+
+        <!-- Font Awesome Script -->
+        <script
+            src="https://kit.fontawesome.com/321779f561.js"
+            crossorigin="anonymous"
+        ></script>
+
+        <style></style>
+
+        <!-- External CSS -->
+        <title>Yestore</title>
+    </head>
+    <body class="h-100">
+        <!-- Image and text -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <i class="fa-solid fa-store"></i>
+                Yestore
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ml-auto">
+                    <form class="form-inline" method="post">
+                        <input
+                            class="form-control mr-sm-2"
+                            type="search"
+                            placeholder="Category..."
+                            aria-label="Search"
+                            name="category"
+                        />
+                        <button
+                            class="btn btn-outline-light my-2 my-sm-0"
+                            type="submit"
+                        >
+                            Search
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <section class="h-100" style="background-color: #eee">
+            <div class="container h-100 py-5">
+                <div
+                    class="row d-flex justify-content-center align-items-center h-100"
+                >
+                    <div class="col-10">
+                        <div
+                            class="d-flex justify-content-between align-items-center mb-4"
+                        >
+                            <h3 class="fw-normal mb-0 text-black">
+                                Items Available,
+                            </h3>
+                        </div>
+                        <div
+                            class="d-flex justify-content-between align-items-center mb-4"
+                        >
+                            <a href="{{ url_for('admin') }}"
+                                >< Go back to dashboard</a
+                            >
+                        </div>
+                        <div class="row">
+                            {% if (products is defined) and products %} {% for
+                            product in products %}
+                            <div class="col-lg-4 mt-4">
+                                <div class="card" style="width: 18rem">
+                                    <img
+                                        class="card-img-top"
+                                        src="{{ product.img_url }}"
+                                        alt="Card image cap"
+                                    />
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            {{ product.item }}
+                                        </h5>
+                                        <p class="card-text">
+                                            <b>Description:</b> {{
+                                            product.description|safe }}
+                                        </p>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <b>Brand:</b> {{ product.brand }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>Price:</b> {{ product.price }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>Category:</b> {{ product.category
+                                            }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>Stripe Product ID:</b> {{
+                                            product.product_id }}
+                                        </li>
+                                    </ul>
+                                    <div class="card-body">
+                                        <a
+                                            href="{{ url_for('edit_item', id=product.id) }}"
+                                            class="card-link"
+                                            >Edit item</a
+                                        >
+                                        <a
+                                            href="{{ url_for('delete_item', id=product.id) }}"
+                                            class="card-link"
+                                            >Delete item</a
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %} {% else %}
+                            <div class="alert alert-danger" role="alert">
+                                Product not found!
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>
