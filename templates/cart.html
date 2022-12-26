@@ -63,6 +63,7 @@
         <title>HillTech Technologies</title>
     </head>
     <body class="h-100">
+        <div id="loader"></div>
         <!-- Image and text -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top">
             <a class="navbar-brand" href="{{ url_for('home') }}">
@@ -164,5 +165,7 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"
         ></script>
+        <script src="{{ url_for('static' , filename='js/custom.js') }}"></script>
+
     </body>
 </html>
